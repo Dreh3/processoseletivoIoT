@@ -83,15 +83,17 @@ while True:
     ESTADO_DE_ERRO_PORTA = False
   
   if(not PORTA_ABERTA and not ESTADO_DE_ERRO_TEMP):
-    temperatura_referencial = mpu.read_temperature()
-    print("Temperatura de referencia atualizada: ", temperatura_referencial)
-    variacao_termica = mpu.read_temperature() - temperaturaReferencial
+    temperatura_atual = mpu.read_temperature()
+    print("Temperatura de referencia atualizada: ", temperatura_atual)
+    variacao_termica = temperatura_atual - temperaturaReferencial
+    print("Variacao termica: ", variacao_termica)
     if (variacao_termica >= LIMITE_VARIACAO):
         ESTADO_DE_ERRO_TEMP = True
         ERRO = True
         print("ALERTA: Degradacao termica detectada!")
     else:
         ESTADO_DE_ERRO_TEMP = False
+    temperaturaReferencial = temperatura_atual
 
   if(ERRO and not ESTADO_DE_ERRO_PORTA and not ESTADO_DE_ERRO_TEMP):
     #ERRO = False
