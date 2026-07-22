@@ -69,31 +69,32 @@ while True:
 
   time.sleep_ms(100)
   
-  print("Botao: ", btn1.value())
+  #print("Botao: ", btn1.value())
 
   if(btn1.value()==1 and not PORTA_ABERTA):
-    print("Porta aberta")
+    #print("Porta aberta")
     PORTA_ABERTA = True
     ESTADO_DE_ERRO_PORTA = True
     timer.init(period=LIMITE_TEMPO, mode=Timer.ONE_SHOT, callback=limitePortaAberta)
   elif(btn1.value()==0 and PORTA_ABERTA):
-    print("Porta fechada!")
+    #print("Porta fechada!")
     timer.deinit()
     PORTA_ABERTA = False
     ESTADO_DE_ERRO_PORTA = False
   
-  if(not PORTA_ABERTA):
+  if(not PORTA_ABERTA and not ESTADO_DE_ERRO_TEMP):
     temperatura_referencial = mpu.read_temperature()
-  variacao_termica = mpu.read_temperature() - temperaturaReferencial
-  if (variacao_termica >= LIMITE_VARIACAO):
-    ESTADO_DE_ERRO_TEMP = True
-    ERRO = True
-    print("ALERTA: Degradacao termica detectada!")
-  else:
-    ESTADO_DE_ERRO_TEMP = False
+    print("Temperatura de referencia atualizada: ", temperatura_referencial)
+    variacao_termica = mpu.read_temperature() - temperaturaReferencial
+    if (variacao_termica >= LIMITE_VARIACAO):
+        ESTADO_DE_ERRO_TEMP = True
+        ERRO = True
+        print("ALERTA: Degradacao termica detectada!")
+    else:
+        ESTADO_DE_ERRO_TEMP = False
 
   if(ERRO and not ESTADO_DE_ERRO_PORTA and not ESTADO_DE_ERRO_TEMP):
-    ERRO = False
+    #ERRO = False
     print("Status: Sistema Normalizado.")
 
   
