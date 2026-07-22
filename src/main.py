@@ -40,7 +40,6 @@ ESTADO_DE_ERRO_TEMP = False   #variáveis para emitir alerta apenas quando neces
 ESTADO_DE_ERRO_PORTA = False
 ERRO = False
 
-
 #------                      Configurando os periféricos                            ------
 
 btn1 = Pin(14, Pin.IN, Pin.PULL_UP)
