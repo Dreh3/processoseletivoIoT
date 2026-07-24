@@ -45,7 +45,7 @@ btn1 = Pin(14, Pin.IN, Pin.PULL_UP)
 i2c = SoftI2C(scl=Pin(22), sda=Pin(21), freq=100000)
 mpu = MPU6050(i2c, MPU6050_ADDR)
 
-timer = Timer(0)  
+timer = Timer(0)
 
 #------                                 Funções                                     ------
 
@@ -57,10 +57,9 @@ def limitePortaAberta(timer_obj):
     ESTADO_DE_ERRO_PORTA = True
     print("ALERTA: Porta aberta por muito tempo!")
 
-# Salva temperatura de referência
+
 temperaturaReferencial = mpu.read_temperature()
 
-# Mensagem inicial
 print("Sistema de Monitoramento Inicializado")
 
 while True:
@@ -75,7 +74,7 @@ while True:
     timer.deinit()
     PORTA_ABERTA = False
     ESTADO_DE_ERRO_PORTA = False
-  
+
   if(not PORTA_ABERTA and not ESTADO_DE_ERRO_TEMP):
     temperatura_atual = mpu.read_temperature()
     variacao_termica = temperatura_atual - temperaturaReferencial
