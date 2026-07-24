@@ -87,7 +87,7 @@ while True:
     temperaturaReferencial = temperatura_atual
 
   if(ERRO and not ESTADO_DE_ERRO_PORTA and not ESTADO_DE_ERRO_TEMP):
-    ERRO = False
+    #ERRO = False
     print("Status: Sistema Normalizado.")
 
   
