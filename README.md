@@ -1,7 +1,7 @@
 
 # Projeto — Sistema de Monitoramento de Temperatura e Abertura de Porta
 
-> **Residência em Sistemas Embarcados – Processo Seletivo**
+> **Processo Seletivo – Etapa LabMaker**
 >
 > **Nome:** Andressa Sousa Fonseca
 >
