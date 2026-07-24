@@ -1,4 +1,3 @@
-#importando biblotecas
 from machine import Pin, Timer, SoftI2C
 import time
 
@@ -46,7 +45,7 @@ btn1 = Pin(14, Pin.IN, Pin.PULL_UP)
 i2c = SoftI2C(scl=Pin(22), sda=Pin(21), freq=100000)
 mpu = MPU6050(i2c, MPU6050_ADDR)
 
-timer = Timer(0)  #timer para verificar status da porta
+timer = Timer(0)  
 
 #------                                 Funções                                     ------
 
@@ -60,33 +59,26 @@ def limitePortaAberta(timer_obj):
 
 # Salva temperatura de referência
 temperaturaReferencial = mpu.read_temperature()
-temperatura_atual = mpu.read_temperature()
-print("Temperatura: ", temperaturaReferencial)
+
 # Mensagem inicial
 print("Sistema de Monitoramento Inicializado")
 
 while True:
 
   time.sleep_ms(100)
-  
-  #print("Botao: ", btn1.value())
 
   if(btn1.value()==1 and not PORTA_ABERTA):
-    #print("Porta aberta")
     PORTA_ABERTA = True
     ESTADO_DE_ERRO_PORTA = True
     timer.init(period=LIMITE_TEMPO, mode=Timer.ONE_SHOT, callback=limitePortaAberta)
   elif(btn1.value()==0 and PORTA_ABERTA):
-    #print("Porta fechada!")
     timer.deinit()
     PORTA_ABERTA = False
     ESTADO_DE_ERRO_PORTA = False
   
   if(not PORTA_ABERTA and not ESTADO_DE_ERRO_TEMP):
     temperatura_atual = mpu.read_temperature()
-    print("Temperatura de referencia atualizada: ", temperatura_atual)
     variacao_termica = temperatura_atual - temperaturaReferencial
-    print("Variacao termica: ", variacao_termica)
     if (variacao_termica >= LIMITE_VARIACAO):
         ESTADO_DE_ERRO_TEMP = True
         ERRO = True
@@ -96,7 +88,7 @@ while True:
     temperaturaReferencial = temperatura_atual
 
   if(ERRO and not ESTADO_DE_ERRO_PORTA and not ESTADO_DE_ERRO_TEMP):
-    #ERRO = False
+    ERRO = False
     print("Status: Sistema Normalizado.")
 
   
